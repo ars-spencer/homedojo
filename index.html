@@ -7,524 +7,460 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #fdf8f2;
-      --card-bg: #ffffff;
-      --text: #2c2c2a;
-      --muted: #888780;
-      --border: rgba(0,0,0,0.08);
-      --shadow: 0 4px 20px rgba(0,0,0,0.08);
-      --radius: 20px;
+      --bg: #fdf8f2; --card-bg: #ffffff; --text: #2c2c2a;
+      --muted: #888780; --border: rgba(0,0,0,0.08);
+      --shadow: 0 4px 20px rgba(0,0,0,0.08); --radius: 20px;
     }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 2rem 1rem 4rem;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: var(--text);
-    }
-
-    header p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    .star-icon {
-      display: inline-block;
-      font-size: 1.8rem;
-      vertical-align: middle;
-      margin-right: 0.3rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      max-width: 760px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .kid-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.75rem;
-      border: 2px solid transparent;
-      transition: transform 0.2s ease;
-    }
-
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
+    header { text-align: center; margin-bottom: 1.75rem; }
+    header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px; }
+    header p { font-size: 0.95rem; color: var(--muted); margin-top: 0.3rem; }
+    .tabs { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+    .tab-btn { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; padding: 0.55rem 1.6rem; border-radius: 50px; border: 2px solid var(--border); cursor: pointer; transition: all 0.18s ease; background: var(--card-bg); color: var(--muted); }
+    .tab-btn.active { background: #2c2c2a; color: #fff; border-color: #2c2c2a; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 760px; margin: 0 auto 2.5rem; }
+    .kid-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.75rem; border: 2px solid transparent; transition: transform 0.2s ease; }
     .kid-card:hover { transform: translateY(-2px); }
-
     .kid-card.kid-1 { border-color: #f0997b; }
     .kid-card.kid-2 { border-color: #5dcaa5; }
-
-    .kid-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
+    .kid-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; flex-shrink: 0; }
     .kid-1 .avatar { background: #faece7; color: #d85a30; }
     .kid-2 .avatar { background: #e1f5ee; color: #1d9e75; }
-
-    .kid-name-wrap h2 {
-      font-size: 1.3rem;
-      font-weight: 900;
-    }
-
-    .kid-name-wrap span {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .score-display {
-      text-align: center;
-      margin: 1.25rem 0 1.5rem;
-      padding: 1rem;
-      border-radius: 14px;
-    }
-
+    .kid-name-wrap h2 { font-size: 1.3rem; font-weight: 900; cursor: pointer; border-bottom: 1.5px dashed transparent; transition: border-color 0.15s; }
+    .kid-name-wrap h2:hover { border-color: var(--muted); }
+    .kid-name-wrap span { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .score-display { text-align: center; margin: 1.25rem 0 1.5rem; padding: 1rem; border-radius: 14px; }
     .kid-1 .score-display { background: #faece7; }
     .kid-2 .score-display { background: #e1f5ee; }
-
-    .score-display .pts {
-      font-size: 3.5rem;
-      font-weight: 900;
-      line-height: 1;
-      display: block;
-    }
-
+    .score-display .pts { font-size: 3.5rem; font-weight: 900; line-height: 1; display: block; }
     .kid-1 .score-display .pts { color: #d85a30; }
     .kid-2 .score-display .pts { color: #1d9e75; }
-
-    .score-display .pts-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 0.6rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .add-btn {
-      flex: 1;
-      padding: 0.7rem 0.5rem;
-      border: none;
-      border-radius: 12px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
-      font-weight: 900;
-      cursor: pointer;
-      transition: transform 0.12s ease, filter 0.12s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .score-display .pts-label { font-size: 0.85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-row { display: flex; gap: 0.6rem; margin-bottom: 0.75rem; }
+    .add-btn { flex: 1; padding: 0.7rem 0.5rem; border: none; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: transform 0.12s ease, filter 0.12s ease; }
     .add-btn:active { transform: scale(0.94); }
     .add-btn:hover { filter: brightness(1.08); }
-
     .kid-1 .add-btn { background: #f0997b; color: #4a1b0c; }
     .kid-2 .add-btn { background: #5dcaa5; color: #04342c; }
-
-    .sub-btn {
-      flex: 1;
-      padding: 0.7rem 0.5rem;
-      border: 2px solid;
-      border-radius: 12px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
-      font-weight: 900;
-      cursor: pointer;
-      background: transparent;
-      transition: transform 0.12s ease, background 0.12s ease;
-    }
-
-    .sub-btn:active { transform: scale(0.94); }
-
-    .kid-1 .sub-btn { border-color: #f0997b; color: #d85a30; }
-    .kid-1 .sub-btn:hover { background: #faece7; }
-    .kid-2 .sub-btn { border-color: #5dcaa5; color: #1d9e75; }
-    .kid-2 .sub-btn:hover { background: #e1f5ee; }
-
-    .divider {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      text-align: center;
-      margin: 0.4rem 0;
-    }
-
-    .reset-btn {
-      width: 100%;
-      margin-top: 0.75rem;
-      padding: 0.55rem;
-      border: 1.5px dashed var(--border);
-      background: transparent;
-      border-radius: 10px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
+    .reset-btn { width: 100%; margin-top: 0.75rem; padding: 0.55rem; border: 1.5px dashed var(--border); background: transparent; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--muted); cursor: pointer; transition: color 0.15s, border-color 0.15s; }
     .reset-btn:hover { color: #e24b4a; border-color: #e24b4a; }
-
-    /* History log */
-    .history-wrap {
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    .history-wrap h3 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .log-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
+    .history-wrap { max-width: 760px; margin: 0 auto; }
+    .history-wrap h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; }
+    .log-list { display: flex; flex-direction: column; gap: 0.4rem; max-height: 260px; overflow-y: auto; padding-right: 4px; }
     .log-list::-webkit-scrollbar { width: 4px; }
     .log-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-    .log-entry {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--card-bg);
-      border-radius: 10px;
-      padding: 0.5rem 0.85rem;
-      font-size: 0.9rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-      animation: slideIn 0.25s ease;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .log-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
+    .log-entry { display: flex; align-items: center; gap: 0.75rem; background: var(--card-bg); border-radius: 10px; padding: 0.5rem 0.85rem; font-size: 0.9rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05); animation: slideIn 0.25s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .log-dot.k1 { background: #f0997b; }
     .log-dot.k2 { background: #5dcaa5; }
-
-    .log-name { font-weight: 700; flex: 1; }
-    .log-pts { font-weight: 900; }
+    .log-dot.prize { background: #7f77dd; }
+    .log-name { font-weight: 700; flex-shrink: 0; }
+    .log-desc { flex: 1; font-size: 0.85rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .log-pts { font-weight: 900; flex-shrink: 0; }
     .log-pts.pos { color: #3b6d11; }
-    .log-pts.neg { color: #a32d2d; }
-    .log-time { font-size: 0.75rem; color: var(--muted); }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #2c2c2a;
-      color: #fff;
-      padding: 0.65rem 1.4rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 999;
-      white-space: nowrap;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Name edit */
-    .kid-name-wrap h2 {
-      cursor: pointer;
-      border-bottom: 1.5px dashed transparent;
-      transition: border-color 0.15s;
-    }
-    .kid-name-wrap h2:hover { border-color: var(--muted); }
-
-    .name-input {
-      font-family: 'Nunito', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 900;
-      border: none;
-      border-bottom: 2px solid;
-      background: transparent;
-      outline: none;
-      width: 130px;
-    }
-
+    .log-pts.spent { color: #534ab7; }
+    .log-time { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
+    .clear-history-btn { font-size: 0.75rem; font-weight: 700; color: var(--muted); background: none; border: none; cursor: pointer; float: right; font-family: 'Nunito', sans-serif; padding: 0; }
+    .clear-history-btn:hover { color: #e24b4a; }
+    .prizes-outer { max-width: 760px; margin: 0 auto; }
+    .prizes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+    .prizes-header h2 { font-size: 1.1rem; font-weight: 900; }
+    .add-prize-btn { font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700; background: #2c2c2a; color: #fff; border: none; border-radius: 50px; padding: 0.5rem 1.2rem; cursor: pointer; transition: filter 0.15s; }
+    .add-prize-btn:hover { filter: brightness(1.2); }
+    .redeem-picker { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .picker-btn { flex: 1; padding: 0.65rem 1rem; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.15s ease; border: 2px solid var(--border); background: var(--card-bg); color: var(--muted); }
+    .picker-btn.selected-k1 { background: #faece7; border-color: #f0997b; color: #d85a30; }
+    .picker-btn.selected-k2 { background: #e1f5ee; border-color: #5dcaa5; color: #1d9e75; }
+    .prizes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .prize-card { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; border: 2px solid transparent; transition: transform 0.15s ease, border-color 0.15s; position: relative; }
+    .prize-card:hover { transform: translateY(-2px); }
+    .prize-card.can-afford { border-color: #afa9ec; }
+    .prize-card.cant-afford { opacity: 0.5; }
+    .prize-emoji { font-size: 2rem; line-height: 1; }
+    .prize-name { font-size: 1rem; font-weight: 900; line-height: 1.2; }
+    .prize-cost { display: inline-flex; align-items: center; gap: 0.3rem; background: #eeedfe; color: #534ab7; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 50px; width: fit-content; }
+    .prize-redeem-btn { margin-top: auto; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; padding: 0.5rem; border-radius: 10px; border: none; cursor: pointer; background: #7f77dd; color: #fff; transition: filter 0.12s ease, transform 0.12s ease; }
+    .prize-redeem-btn:hover { filter: brightness(1.1); }
+    .prize-redeem-btn:active { transform: scale(0.95); }
+    .prize-redeem-btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; filter: none; }
+    .prize-delete-btn { position: absolute; top: 0.6rem; right: 0.6rem; background: none; border: none; cursor: pointer; font-size: 0.75rem; color: var(--muted); opacity: 0; transition: opacity 0.15s; font-family: 'Nunito', sans-serif; font-weight: 700; }
+    .prize-card:hover .prize-delete-btn { opacity: 1; }
+    .prize-delete-btn:hover { color: #e24b4a; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+    .modal-backdrop.hidden { display: none; }
+    .modal { background: var(--card-bg); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 400px; box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
+    .modal h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 1.25rem; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
+    .field input { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; }
+    .field input:focus { border-color: #7f77dd; }
+    .emoji-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .emoji-pick { font-size: 1.4rem; cursor: pointer; padding: 0.2rem 0.3rem; border-radius: 8px; border: 2px solid transparent; transition: border-color 0.12s; background: none; }
+    .emoji-pick.chosen { border-color: #7f77dd; background: #eeedfe; }
+    .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .modal-actions button { flex: 1; padding: 0.7rem; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: filter 0.15s; }
+    .btn-save { background: #7f77dd; color: #fff; border: none; }
+    .btn-save:hover { filter: brightness(1.1); }
+    .btn-cancel { background: transparent; border: 1.5px solid var(--border); color: var(--muted); }
+    .btn-cancel:hover { border-color: var(--muted); }
+    .name-input { font-family: 'Nunito', sans-serif; font-size: 1.3rem; font-weight: 900; border: none; border-bottom: 2px solid; background: transparent; outline: none; width: 130px; }
     .kid-1 .name-input { border-color: #d85a30; color: var(--text); }
     .kid-2 .name-input { border-color: #1d9e75; color: var(--text); }
-
-    .clear-history-btn {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--muted);
-      background: none;
-      border: none;
-      cursor: pointer;
-      float: right;
-      font-family: 'Nunito', sans-serif;
-      padding: 0;
-    }
-    .clear-history-btn:hover { color: #e24b4a; }
+    .confirm-center { text-align: center; }
+    .confirm-emoji-big { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
+    .confirm-body { color: var(--muted); font-size: 0.95rem; margin-bottom: 0; }
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); background: #2c2c2a; color: #fff; padding: 0.65rem 1.4rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 999; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
 <header>
-  <h1><span class="star-icon">⭐</span> Home Dojo</h1>
+  <h1>⭐ Home Dojo</h1>
   <p>Earn points for great choices</p>
 </header>
 
-<div class="grid">
-  <!-- Kid 1 -->
-  <div class="kid-card kid-1" id="card-0">
-    <div class="kid-header">
-      <div class="avatar" id="avatar-0">K1</div>
-      <div class="kid-name-wrap">
-        <h2 id="name-display-0" title="Click to edit name">Kid 1</h2>
-        <span>Points tracker</span>
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('points',this)">Points</button>
+  <button class="tab-btn" onclick="switchTab('prizes',this)">Prizes</button>
+</div>
+
+<!-- POINTS TAB -->
+<div class="tab-panel active" id="tab-points">
+  <div class="grid">
+    <div class="kid-card kid-1">
+      <div class="kid-header">
+        <div class="avatar" id="avatar-0">K1</div>
+        <div class="kid-name-wrap">
+          <h2 id="name-display-0" title="Tap to edit">Kid 1</h2>
+          <span>Points tracker</span>
+        </div>
       </div>
+      <div class="score-display">
+        <span class="pts" id="score-0">0</span>
+        <span class="pts-label">total points</span>
+      </div>
+      <div class="btn-row">
+        <button class="add-btn" onclick="addPoints(0,1)">+1</button>
+        <button class="add-btn" onclick="addPoints(0,3)">+3</button>
+        <button class="add-btn" onclick="addPoints(0,5)">+5</button>
+      </div>
+      <button class="reset-btn" onclick="resetScore(0)">Reset to 0</button>
     </div>
-    <div class="score-display">
-      <span class="pts" id="score-0">0</span>
-      <span class="pts-label">total points</span>
+
+    <div class="kid-card kid-2">
+      <div class="kid-header">
+        <div class="avatar" id="avatar-1">K2</div>
+        <div class="kid-name-wrap">
+          <h2 id="name-display-1" title="Tap to edit">Kid 2</h2>
+          <span>Points tracker</span>
+        </div>
+      </div>
+      <div class="score-display">
+        <span class="pts" id="score-1">0</span>
+        <span class="pts-label">total points</span>
+      </div>
+      <div class="btn-row">
+        <button class="add-btn" onclick="addPoints(1,1)">+1</button>
+        <button class="add-btn" onclick="addPoints(1,3)">+3</button>
+        <button class="add-btn" onclick="addPoints(1,5)">+5</button>
+      </div>
+      <button class="reset-btn" onclick="resetScore(1)">Reset to 0</button>
     </div>
-    <div class="btn-row">
-      <button class="add-btn" onclick="addPoints(0, 1)">+1</button>
-      <button class="add-btn" onclick="addPoints(0, 3)">+3</button>
-      <button class="add-btn" onclick="addPoints(0, 5)">+5</button>
-    </div>
-    <div class="divider">remove points</div>
-    <div class="btn-row">
-      <button class="sub-btn" onclick="addPoints(0, -1)">−1</button>
-      <button class="sub-btn" onclick="addPoints(0, -3)">−3</button>
-      <button class="sub-btn" onclick="addPoints(0, -5)">−5</button>
-    </div>
-    <button class="reset-btn" onclick="resetScore(0)">Reset to 0</button>
   </div>
 
-  <!-- Kid 2 -->
-  <div class="kid-card kid-2" id="card-1">
-    <div class="kid-header">
-      <div class="avatar" id="avatar-1">K2</div>
-      <div class="kid-name-wrap">
-        <h2 id="name-display-1" title="Click to edit name">Kid 2</h2>
-        <span>Points tracker</span>
-      </div>
+  <div class="history-wrap">
+    <h3>Recent activity <button class="clear-history-btn" onclick="clearHistory()">Clear all</button></h3>
+    <div class="log-list" id="log-list">
+      <div style="color:var(--muted);font-size:0.9rem;padding:0.5rem 0.85rem;">No activity yet — start awarding points!</div>
     </div>
-    <div class="score-display">
-      <span class="pts" id="score-1">0</span>
-      <span class="pts-label">total points</span>
-    </div>
-    <div class="btn-row">
-      <button class="add-btn" onclick="addPoints(1, 1)">+1</button>
-      <button class="add-btn" onclick="addPoints(1, 3)">+3</button>
-      <button class="add-btn" onclick="addPoints(1, 5)">+5</button>
-    </div>
-    <div class="divider">remove points</div>
-    <div class="btn-row">
-      <button class="sub-btn" onclick="addPoints(1, -1)">−1</button>
-      <button class="sub-btn" onclick="addPoints(1, -3)">−3</button>
-      <button class="sub-btn" onclick="addPoints(1, -5)">−5</button>
-    </div>
-    <button class="reset-btn" onclick="resetScore(1)">Reset to 0</button>
   </div>
 </div>
 
-<!-- History -->
-<div class="history-wrap">
-  <h3>Recent activity <button class="clear-history-btn" onclick="clearHistory()">Clear all</button></h3>
-  <div class="log-list" id="log-list">
-    <div style="color: var(--muted); font-size: 0.9rem; padding: 0.5rem 0.85rem;">No activity yet — start awarding points!</div>
+<!-- PRIZES TAB -->
+<div class="tab-panel" id="tab-prizes">
+  <div class="prizes-outer">
+    <div class="prizes-header">
+      <h2>Who's shopping?</h2>
+      <button class="add-prize-btn" onclick="openAddPrize()">+ Add prize</button>
+    </div>
+
+    <div class="redeem-picker">
+      <button class="picker-btn" id="picker-0" onclick="selectKid(0)">
+        <span id="picker-name-0">Kid 1</span> — <span id="picker-pts-0">0</span> pts
+      </button>
+      <button class="picker-btn" id="picker-1" onclick="selectKid(1)">
+        <span id="picker-name-1">Kid 2</span> — <span id="picker-pts-1">0</span> pts
+      </button>
+    </div>
+
+    <div class="prizes-grid" id="prizes-grid"></div>
+  </div>
+</div>
+
+<!-- Add Prize Modal -->
+<div class="modal-backdrop hidden" id="add-modal">
+  <div class="modal">
+    <h3>Add a prize</h3>
+    <div class="field">
+      <label>Prize name</label>
+      <input type="text" id="prize-name-input" placeholder="e.g. Stay up 30 min late" maxlength="40" />
+    </div>
+    <div class="field">
+      <label>Points cost</label>
+      <input type="number" id="prize-cost-input" placeholder="e.g. 10" min="1" max="999" />
+    </div>
+    <div class="field">
+      <label>Pick an emoji</label>
+      <div class="emoji-row" id="emoji-row"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeAddPrize()">Cancel</button>
+      <button class="btn-save" onclick="savePrize()">Save prize</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Redeem Modal -->
+<div class="modal-backdrop hidden" id="confirm-modal">
+  <div class="modal">
+    <div class="confirm-center">
+      <span class="confirm-emoji-big" id="confirm-emoji">🎉</span>
+      <h3 id="confirm-title" style="margin-bottom:0.6rem;">Redeem prize?</h3>
+      <p class="confirm-body" id="confirm-body" style="margin-bottom:1.5rem;"></p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-save" onclick="doRedeem()">Yes, redeem!</button>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  const STATE_KEY = 'home_dojo_v2';
+const STATE_KEY = 'home_dojo_v3';
+const EMOJIS = ['🍦','🍕','🎬','🎮','🏊','🎳','🍩','🎉','🌮','🍿','🎨','🧁','🏖️','🎡','⛺','🎤','🛝','🧇','🎲','🚴'];
 
-  let state = {
-    names: ['Kid 1', 'Kid 2'],
-    scores: [0, 0],
-    log: []
-  };
+const DEFAULT_PRIZES = [
+  { id:1, emoji:'🍦', name:'Ice cream trip', cost:30 },
+  { id:2, emoji:'🎬', name:'Movie night (you pick)', cost:15 },
+  { id:3, emoji:'🍕', name:'Dinner of choice', cost:20 },
+  { id:4, emoji:'🏊', name:'Pool or splash pad day', cost:25 },
+  { id:5, emoji:'🎳', name:'Bowling trip', cost:40 },
+  { id:6, emoji:'🎮', name:'15 min extra screen time', cost:10 },
+  { id:7, emoji:'🧁', name:'Bake something together', cost:10 },
+  { id:8, emoji:'⛺', name:'Backyard campout', cost:100 },
+  { id:8, emoji:'👨‍👧', name:'One-on-One time with dad', cost:20 },
+  { id:8, emoji:'👩‍❤️‍👩', name:'One-on-One time with mom', cost:20 },
+  { id:8, emoji:'🎲', name:'Game of your choice', cost:5 },
+  { id:8, emoji:'🍫', name:'One extra piece of candy', cost:10 },
+  
+];
 
-  function load() {
-    try {
-      const saved = localStorage.getItem(STATE_KEY);
-      if (saved) state = JSON.parse(saved);
-    } catch(e) {}
-    render();
+let state = { names:['Kid 1','Kid 2'], scores:[0,0], log:[], prizes:DEFAULT_PRIZES, nextPrizeId:9 };
+let selectedKid = null;
+let pendingRedeem = null;
+let chosenEmoji = EMOJIS[0];
+
+function load() {
+  try { const s = localStorage.getItem(STATE_KEY); if (s) state = JSON.parse(s); } catch(e) {}
+  render();
+}
+
+function save() {
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function initials(n) { return n.trim().split(/\s+/).map(w=>w[0].toUpperCase()).slice(0,2).join(''); }
+
+function render() {
+  for (let i=0;i<2;i++) {
+    document.getElementById('score-'+i).textContent = state.scores[i];
+    const nd = document.getElementById('name-display-'+i);
+    if (nd) nd.textContent = state.names[i];
+    document.getElementById('avatar-'+i).textContent = initials(state.names[i]);
+    document.getElementById('picker-name-'+i).textContent = state.names[i];
+    document.getElementById('picker-pts-'+i).textContent = state.scores[i];
   }
+  renderLog();
+  renderPrizes();
+  renderPicker();
+}
 
-  function save() {
-    try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch(e) {}
+function renderPicker() {
+  for (let i=0;i<2;i++) {
+    const b = document.getElementById('picker-'+i);
+    b.className = 'picker-btn' + (selectedKid===i ? (i===0?' selected-k1':' selected-k2') : '');
   }
+}
 
-  function initials(name) {
-    return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0,2).join('');
+function renderLog() {
+  const el = document.getElementById('log-list');
+  if (!state.log.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:0.9rem;padding:0.5rem 0.85rem;">No activity yet!</div>';
+    return;
   }
+  el.innerHTML = state.log.slice().reverse().map(e => {
+    if (e.type==='prize') return `<div class="log-entry"><div class="log-dot prize"></div><span class="log-name">${e.name}</span><span class="log-desc">${e.prizeName}</span><span class="log-pts spent">−${e.cost} pts</span><span class="log-time">${e.time}</span></div>`;
+    if (e.type==='reset') return `<div class="log-entry"><div class="log-dot ${e.kid===0?'k1':'k2'}"></div><span class="log-name">${e.name}</span><span class="log-desc">reset</span><span class="log-pts" style="color:var(--muted)">0</span><span class="log-time">${e.time}</span></div>`;
+    return `<div class="log-entry"><div class="log-dot ${e.kid===0?'k1':'k2'}"></div><span class="log-name">${e.name}</span><span class="log-desc"></span><span class="log-pts pos">+${e.pts} pts</span><span class="log-time">${e.time}</span></div>`;
+  }).join('');
+}
 
-  function render() {
-    for (let i = 0; i < 2; i++) {
-      document.getElementById('score-' + i).textContent = state.scores[i];
-      const nd = document.getElementById('name-display-' + i);
-      if (nd) nd.textContent = state.names[i];
-      document.getElementById('avatar-' + i).textContent = initials(state.names[i]);
-    }
-    renderLog();
+function renderPrizes() {
+  const grid = document.getElementById('prizes-grid');
+  const pts = selectedKid!==null ? state.scores[selectedKid] : null;
+  if (!state.prizes.length) {
+    grid.innerHTML = '<div style="color:var(--muted);font-size:0.9rem;grid-column:1/-1;">No prizes yet — add some above!</div>';
+    return;
   }
+  grid.innerHTML = state.prizes.map(p => {
+    const noKid = selectedKid===null;
+    const canAfford = !noKid && pts>=p.cost;
+    const cardClass = noKid ? '' : (canAfford ? 'can-afford' : 'cant-afford');
+    const btnDisabled = (noKid||!canAfford) ? 'disabled' : '';
+    const btnLabel = noKid ? 'Select who above' : (canAfford ? 'Redeem' : 'Not enough pts');
+    return `<div class="prize-card ${cardClass}">
+      <button class="prize-delete-btn" onclick="deletePrize(${p.id},event)">✕ remove</button>
+      <div class="prize-emoji">${p.emoji}</div>
+      <div class="prize-name">${p.name}</div>
+      <div class="prize-cost">⭐ ${p.cost} pts</div>
+      <button class="prize-redeem-btn" ${btnDisabled} onclick="confirmRedeem(${p.id})">${btnLabel}</button>
+    </div>`;
+  }).join('');
+}
 
-  function renderLog() {
-    const el = document.getElementById('log-list');
-    if (state.log.length === 0) {
-      el.innerHTML = '<div style="color: var(--muted); font-size: 0.9rem; padding: 0.5rem 0.85rem;">No activity yet — start awarding points!</div>';
-      return;
-    }
-    el.innerHTML = state.log.slice().reverse().map(entry => `
-      <div class="log-entry">
-        <div class="log-dot ${entry.kid === 0 ? 'k1' : 'k2'}"></div>
-        <span class="log-name">${entry.name}</span>
-        <span class="log-pts ${entry.pts > 0 ? 'pos' : 'neg'}">${entry.pts > 0 ? '+' : ''}${entry.pts} pts</span>
-        <span class="log-time">${entry.time}</span>
-      </div>
-    `).join('');
+function selectKid(k) { selectedKid = selectedKid===k ? null : k; renderPicker(); renderPrizes(); }
+
+function addPoints(kid,pts) {
+  state.scores[kid] += pts;
+  const time = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  state.log.push({kid,name:state.names[kid],pts,time,type:'points'});
+  if (state.log.length>80) state.log.shift();
+  save(); render();
+  showToast('🎉 '+state.names[kid]+': +'+pts+' points!');
+  const el = document.getElementById('score-'+kid);
+  el.style.transition='transform 0.15s ease';
+  el.style.transform='scale(1.3)';
+  setTimeout(()=>{el.style.transform='scale(1)';},150);
+}
+
+function resetScore(kid) {
+  if (!confirm('Reset '+state.names[kid]+"'s points to 0?")) return;
+  state.scores[kid]=0;
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  state.log.push({kid,name:state.names[kid],time,type:'reset'});
+  save(); render(); showToast(state.names[kid]+' reset to 0');
+}
+
+function clearHistory() { if (!confirm('Clear all activity history?')) return; state.log=[]; save(); renderLog(); }
+
+function confirmRedeem(prizeId) {
+  if (selectedKid===null) return;
+  const p=state.prizes.find(x=>x.id===prizeId);
+  if (!p||state.scores[selectedKid]<p.cost) return;
+  pendingRedeem=prizeId;
+  document.getElementById('confirm-emoji').textContent=p.emoji;
+  document.getElementById('confirm-title').textContent=p.name;
+  document.getElementById('confirm-body').textContent=
+    'This costs '+p.cost+' points. '+state.names[selectedKid]+' has '+state.scores[selectedKid]+' pts.';
+  document.getElementById('confirm-modal').classList.remove('hidden');
+}
+
+function closeConfirm() { pendingRedeem=null; document.getElementById('confirm-modal').classList.add('hidden'); }
+
+function doRedeem() {
+  if (pendingRedeem===null||selectedKid===null) return;
+  const p=state.prizes.find(x=>x.id===pendingRedeem);
+  if (!p) return;
+  state.scores[selectedKid]=Math.max(0,state.scores[selectedKid]-p.cost);
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  state.log.push({kid:selectedKid,name:state.names[selectedKid],prizeName:p.name,cost:p.cost,time,type:'prize'});
+  if (state.log.length>80) state.log.shift();
+  save(); render(); closeConfirm();
+  showToast(p.emoji+' '+state.names[selectedKid]+' redeemed: '+p.name+'!');
+}
+
+function deletePrize(id,e) {
+  e.stopPropagation();
+  if (!confirm('Remove this prize?')) return;
+  state.prizes=state.prizes.filter(p=>p.id!==id); save(); renderPrizes();
+}
+
+function openAddPrize() {
+  chosenEmoji=EMOJIS[0];
+  document.getElementById('prize-name-input').value='';
+  document.getElementById('prize-cost-input').value='';
+  buildEmojiRow();
+  document.getElementById('add-modal').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('prize-name-input').focus(),50);
+}
+
+function closeAddPrize() { document.getElementById('add-modal').classList.add('hidden'); }
+
+function buildEmojiRow() {
+  document.getElementById('emoji-row').innerHTML=EMOJIS.map(e=>
+    `<button class="emoji-pick ${e===chosenEmoji?'chosen':''}" onclick="pickEmoji('${e}')">${e}</button>`
+  ).join('');
+}
+
+function pickEmoji(e) { chosenEmoji=e; buildEmojiRow(); }
+
+function savePrize() {
+  const name=document.getElementById('prize-name-input').value.trim();
+  const cost=parseInt(document.getElementById('prize-cost-input').value);
+  if (!name) { alert('Please enter a prize name.'); return; }
+  if (!cost||cost<1) { alert('Please enter a valid points cost.'); return; }
+  state.prizes.push({id:state.nextPrizeId++,emoji:chosenEmoji,name,cost});
+  save(); renderPrizes(); closeAddPrize();
+  showToast('Prize added: '+chosenEmoji+' '+name);
+}
+
+function switchTab(tab,btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function makeEditable(kid) {
+  const display=document.getElementById('name-display-'+kid);
+  const current=state.names[kid];
+  const input=document.createElement('input');
+  input.className='name-input'; input.value=current; input.maxLength=20;
+  display.replaceWith(input); input.focus(); input.select();
+  function commit() {
+    const newName=input.value.trim()||current;
+    state.names[kid]=newName; save();
+    const h2=document.createElement('h2');
+    h2.id='name-display-'+kid; h2.title='Tap to edit'; h2.textContent=newName;
+    h2.onclick=()=>makeEditable(kid);
+    input.replaceWith(h2);
+    document.getElementById('avatar-'+kid).textContent=initials(newName);
+    document.getElementById('picker-name-'+kid).textContent=newName;
   }
+  input.addEventListener('blur',commit);
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')input.blur();if(e.key==='Escape'){input.value=current;input.blur();}});
+}
 
-  function addPoints(kid, pts) {
-    state.scores[kid] = Math.max(0, state.scores[kid] + pts);
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    state.log.push({ kid, name: state.names[kid], pts, time });
-    if (state.log.length > 50) state.log.shift();
-    save();
-    render();
-    const verb = pts > 0 ? '🎉 ' : '';
-    showToast(`${verb}${state.names[kid]}: ${pts > 0 ? '+' : ''}${pts} points!`);
-    // Animate the score
-    const el = document.getElementById('score-' + kid);
-    el.style.transform = 'scale(1.3)';
-    el.style.transition = 'transform 0.15s ease';
-    setTimeout(() => { el.style.transform = 'scale(1)'; }, 150);
-  }
+document.getElementById('name-display-0').addEventListener('click',()=>makeEditable(0));
+document.getElementById('name-display-1').addEventListener('click',()=>makeEditable(1));
+document.getElementById('add-modal').addEventListener('click',function(e){if(e.target===this)closeAddPrize();});
+document.getElementById('confirm-modal').addEventListener('click',function(e){if(e.target===this)closeConfirm();});
 
-  function resetScore(kid) {
-    if (!confirm(`Reset ${state.names[kid]}'s points to 0?`)) return;
-    state.scores[kid] = 0;
-    state.log.push({ kid, name: state.names[kid], pts: 'reset', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-    save();
-    render();
-    showToast(`${state.names[kid]} reset to 0`);
-  }
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
 
-  function clearHistory() {
-    if (!confirm('Clear all activity history?')) return;
-    state.log = [];
-    save();
-    renderLog();
-  }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
-
-  // Inline name editing
-  function makeEditable(kid) {
-    const display = document.getElementById('name-display-' + kid);
-    const current = state.names[kid];
-    const input = document.createElement('input');
-    input.className = 'name-input';
-    input.value = current;
-    input.maxLength = 20;
-    display.replaceWith(input);
-    input.focus();
-    input.select();
-
-    function commit() {
-      const newName = input.value.trim() || current;
-      state.names[kid] = newName;
-      save();
-      const h2 = document.createElement('h2');
-      h2.id = 'name-display-' + kid;
-      h2.title = 'Click to edit name';
-      h2.textContent = newName;
-      h2.onclick = () => makeEditable(kid);
-      input.replaceWith(h2);
-      document.getElementById('avatar-' + kid).textContent = initials(newName);
-    }
-
-    input.addEventListener('blur', commit);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') input.blur(); if (e.key === 'Escape') { input.value = current; input.blur(); } });
-  }
-
-  document.getElementById('name-display-0').addEventListener('click', () => makeEditable(0));
-  document.getElementById('name-display-1').addEventListener('click', () => makeEditable(1));
-
-  load();
+load();
 </script>
 </body>
 </html>
